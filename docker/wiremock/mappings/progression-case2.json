@@ -1,0 +1,22 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "GET",
+    "urlPath": "/progression-query-api/query/api/rest/progression/prosecutioncases/44444444-4444-4444-8444-000000000002",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/vnd.progression.query.prosecutioncase+json"
+      },
+      "CJSCPPUID": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "progression-case2.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

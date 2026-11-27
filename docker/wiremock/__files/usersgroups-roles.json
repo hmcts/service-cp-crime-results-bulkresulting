@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "groupId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+    }
+  ],
+  "allRoles": [
+    {
+      "roleId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "label": "Legal Adviser",
+      "selectable": true,
+      "userPlacements": [
+        {
+          "placementId": "B01AA00",
+          "home": true
+        },
+        {
+          "placementId": "B01ZZ00"
+        }
+      ]
+    }
+  ]
+}

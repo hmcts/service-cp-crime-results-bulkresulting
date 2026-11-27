@@ -1,0 +1,27 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "GET",
+    "urlPath": "/referencedata-query-api/query/api/rest/referencedata/courtrooms",
+    "queryParameters": {
+      "oucode": {
+        "equalTo": "B01AA00"
+      }
+    },
+    "headers": {
+      "Accept": {
+        "equalTo": "application/vnd.referencedata.ou-courtrooms+json"
+      },
+      "CJSCPPUID": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "referencedata-courtrooms.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

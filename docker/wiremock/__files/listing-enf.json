@@ -1,0 +1,497 @@
+{
+  "results": 9,
+  "pageCount": 1,
+  "hearings": [
+    {
+      "id": "33333333-3333-4333-8333-000000000001",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000001"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000001",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000001"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000001",
+              "firstName": "Zara",
+              "lastName": "Adams",
+              "dateOfBirth": "1980-02-03",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000001",
+                  "offenceCode": "OF00001",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "55555555-5555-4555-8555-000000000011",
+              "firstName": "Yusuf",
+              "lastName": "Adams",
+              "dateOfBirth": "1982-04-05",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000011",
+                  "offenceCode": "OF00011",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000002",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000001"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000002",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000002"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000002",
+              "firstName": "Bob",
+              "lastName": "Brown",
+              "dateOfBirth": "1975-06-07",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000002",
+                  "offenceCode": "OF00002",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                },
+                {
+                  "id": "66666666-6666-4666-8666-000000000021",
+                  "offenceCode": "OF00021",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay compensation"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000003",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000002"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000003",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000003"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000003",
+              "organisationName": "Acme Haulage Ltd",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000003",
+                  "offenceCode": "OF00003",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000004",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000001"
+        }
+      ],
+      "hearingDayCount": 2,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000004",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000004"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000004",
+              "firstName": "Multi",
+              "lastName": "Day",
+              "dateOfBirth": "1990-01-01",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000004",
+                  "offenceCode": "OF00004",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000005",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000005",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000005"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000005",
+              "firstName": "No",
+              "lastName": "Room",
+              "dateOfBirth": "1990-01-01",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000005",
+                  "offenceCode": "OF00005",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000006",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000002"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000006",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000006"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000006",
+              "firstName": "Shared",
+              "lastName": "Already",
+              "dateOfBirth": "1990-01-01",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000006",
+                  "offenceCode": "OF00006",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000007",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000002"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000007",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000007"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000007",
+              "firstName": "Has",
+              "lastName": "Application",
+              "dateOfBirth": "1990-01-01",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000007",
+                  "offenceCode": "OF00007",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000008",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000001"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000008",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000008"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000008",
+              "firstName": "Ian",
+              "lastName": "Inflight",
+              "dateOfBirth": "1990-01-01",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000008",
+                  "offenceCode": "OF00008",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000009",
+      "allocated": true,
+      "type": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "description": "Enforcement"
+      },
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentreId": "11111111-1111-4111-8111-111111111111",
+      "hearingDays": [
+        {
+          "hearingDate": "2026-12-01",
+          "startTime": "2026-12-01T10:00:00.000Z",
+          "endTime": "2026-12-01T10:30:00.000Z",
+          "durationMinutes": 30,
+          "sequence": 1,
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "courtRoomId": "22222222-2222-4222-8222-000000000001"
+        }
+      ],
+      "hearingDayCount": 1,
+      "hearingDayPosition": 1,
+      "listedCases": [
+        {
+          "id": "44444444-4444-4444-8444-000000000009",
+          "caseIdentifier": {
+            "authorityId": "88888888-8888-4888-8888-888888888888",
+            "authorityCode": "ENFORC",
+            "caseReference": "URN000009"
+          },
+          "defendants": [
+            {
+              "id": "55555555-5555-4555-8555-000000000009",
+              "firstName": "Dan",
+              "lastName": "Failed",
+              "dateOfBirth": "1985-08-09",
+              "offences": [
+                {
+                  "id": "66666666-6666-4666-8666-000000000009",
+                  "offenceCode": "OF00009",
+                  "startDate": "2026-01-01",
+                  "offenceWording": "Wording",
+                  "statementOfOffence": {
+                    "title": "Fail to pay fine"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

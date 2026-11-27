@@ -1,0 +1,56 @@
+{
+  "hearingSummaries": [
+    {
+      "id": "33333333-3333-4333-8333-000000000001",
+      "hasSharedResults": false,
+      "jurisdictionType": "MAGISTRATES",
+      "hearingDays": [
+        {
+          "sittingDay": "2026-12-01T10:00:00.000Z",
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "hasSharedResults": false
+        }
+      ],
+      "courtApplicationSummaries": []
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000002",
+      "hasSharedResults": false,
+      "jurisdictionType": "MAGISTRATES",
+      "hearingDays": [
+        {
+          "sittingDay": "2026-12-01T10:00:00.000Z",
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "hasSharedResults": false
+        }
+      ],
+      "courtApplicationSummaries": []
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000008",
+      "hasSharedResults": false,
+      "jurisdictionType": "MAGISTRATES",
+      "hearingDays": [
+        {
+          "sittingDay": "2026-12-01T10:00:00.000Z",
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "hasSharedResults": false
+        }
+      ],
+      "courtApplicationSummaries": []
+    },
+    {
+      "id": "33333333-3333-4333-8333-000000000009",
+      "hasSharedResults": false,
+      "jurisdictionType": "MAGISTRATES",
+      "hearingDays": [
+        {
+          "sittingDay": "2026-12-01T10:00:00.000Z",
+          "courtCentreId": "11111111-1111-4111-8111-111111111111",
+          "hasSharedResults": false
+        }
+      ],
+      "courtApplicationSummaries": []
+    }
+  ]
+}

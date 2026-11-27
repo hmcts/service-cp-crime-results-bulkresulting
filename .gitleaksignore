@@ -1,3 +1,7 @@
 # Fingerprints of reviewed false positives, one per line, in gitleaks' `<commit>:<file>:<rule>:<line>`
 # form. A fingerprint is bound to its commit, so an entry covers only that line in history; new
 # findings are not silenced by this file.
+# Reviewed 2026-11-27: the internal-urls rule reads the local-only Claude settings file name
+# (`settings` + `.local` + `.json`) as a hostname. Neither line is a URL.
+a8e521a163721d407102b76d35788ccda5c7182a:.gitignore:internal-urls:39
+a8e521a163721d407102b76d35788ccda5c7182a:.claude/agents/gitops.md:internal-urls:54

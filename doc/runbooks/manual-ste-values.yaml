@@ -1,0 +1,114 @@
+# Values for a manual `helm upgrade --install` of this service into one STE stack with the shared
+# `springboot-app` chart. See manual-ste-deploy.md.
+#
+# Every ${NAME} is filled in with `envsubst` from variables exported in the deployer's shell; none
+# of the environment-specific values are committed here. The shape follows the sibling services'
+# Flux HelmRelease values (results validator and probation results distribution).
+application:
+  context: bulkresulting
+
+services:
+  bulkresulting:
+    route:
+      path:
+        - /bulkresulting
+        - /api/bulkresulting
+      rewrite: /bulkresulting
+
+gateway:
+  name: istio-ingress/istio-ingressgateway-apps
+  namespace: istio-ingress
+  host: "${INGRESS_HOST}"
+
+image:
+  repository: "${ACR_NAME}.azurecr.io/hmcts/service-cp-crime-results-bulkresulting-service"
+  tag: "${IMAGE_TAG}"
+  pullPolicy: Always
+
+replicaCount: 1
+
+# The stack's shared Spring Boot workload identity, as the results validator uses. It needs
+# KeyVaultSecretsUser on the key vault below; it is not given any other grant by this service.
+workload:
+  enable: true
+  identityConfigmapKey: "springboot"
+
+managedIdentity:
+  clientId: "${MANAGED_IDENTITY_CLIENT_ID}"
+  oidcUrl: "${OIDC_ISSUER_URL}"
+  tenantId: "${TENANT_ID}"
+
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "1"
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+
+# Readiness is gated on the database; the Common Platform APIs are never a readiness input.
+livenessProbe:
+  httpGet:
+    path: /bulkresulting/actuator/health/liveness
+    port: http
+    scheme: HTTP
+  periodSeconds: 10
+  initialDelaySeconds: 30
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 2
+readinessProbe:
+  httpGet:
+    path: /bulkresulting/actuator/health/readiness
+    port: http
+    scheme: HTTP
+  periodSeconds: 10
+  initialDelaySeconds: 30
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 2
+
+# Key Vault secrets through the Secrets Store CSI driver: env var alias -> Key Vault object name.
+# Every object listed must exist, or the CSI mount (and the pod) fails.
+secretProvider:
+  create: true
+  keyVaults:
+    - kv_name: "${KEY_VAULT_NAME}"
+      secrets:
+        SPRING_DATASOURCE_PASSWORD: "${DATASOURCE_PASSWORD_SECRET}"
+        PGADMIN_PASS: "${PG_ADMIN_PASSWORD_SECRET}"
+        PGSQLADMINUSER_PASS: "${PGSQLADMIN_PASSWORD_SECRET}"
+        PG_READONLY_SECRET: "${PG_READONLY_PASSWORD_SECRET}"
+
+# The chart's pre-install/pre-upgrade hook creates the database and its owner role in the stack's
+# Postgres. The service runs Flyway itself at startup.
+db:
+  create: true
+  admin_user: "postgres"
+  admin_password_secret: "${PG_ADMIN_PASSWORD_SECRET}"
+  host: "${DB_HOST}"
+  image: "${ACR_NAME}.azurecr.io/docker.io/library/postgres:15.5-alpine"
+  users:
+    bulkresulting:
+      context_user: true
+      password_secret: "${DATASOURCE_PASSWORD_SECRET}"
+    pgsqladmin:
+      password_secret: "${PGSQLADMIN_PASSWORD_SECRET}"
+    pgreadonly:
+      password_secret: "${PG_READONLY_PASSWORD_SECRET}"
+  dbNames:
+    - bulkresulting
+
+env:
+  # The chart's container port is 4550.
+  SERVER_PORT: "4550"
+  SERVER_SERVLET_CONTEXT_PATH: "/bulkresulting"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://${DB_HOST}:5432/bulkresulting"
+  SPRING_DATASOURCE_USERNAME: "bulkresulting"
+  # Host of the stack's internal gateway to the Common Platform context APIs; each client appends
+  # its own context path.
+  CP_BASE_URL: "${CP_BASE_URL}"
+  MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: "false"
+  JAVA_TOOL_OPTIONS: >-
+    -XX:MaxRAMPercentage=75.0 -XX:+AlwaysActAsServerClassMachine
+    -Dmanagement.tracing.enabled=false -Dmanagement.otlp.tracing.export.enabled=false

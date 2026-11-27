@@ -1,0 +1,39 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "GET",
+    "urlPath": "/listing-query-api/query/api/rest/listing/hearings/range-search",
+    "queryParameters": {
+      "ouCode": {
+        "equalTo": "B01AA00"
+      },
+      "businessType": {
+        "equalTo": "ENF"
+      },
+      "allocated": {
+        "equalTo": "true"
+      },
+      "jurisdictionType": {
+        "equalTo": "MAGISTRATES"
+      },
+      "useMaxPageSize": {
+        "equalTo": "true"
+      }
+    },
+    "headers": {
+      "Accept": {
+        "equalTo": "application/vnd.listing.search.hearings+json"
+      },
+      "CJSCPPUID": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "listing-enf.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
