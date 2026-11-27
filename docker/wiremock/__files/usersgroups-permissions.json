@@ -1,0 +1,10 @@
+{
+  "groups": [
+    {
+      "groupId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "groupName": "Legal Advisers"
+    }
+  ],
+  "switchableRoles": [],
+  "permissions": []
+}

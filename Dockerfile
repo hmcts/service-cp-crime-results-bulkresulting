@@ -5,9 +5,13 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE:-eclipse-temurin:25-jre}
 
-# install curl for debugging
+# install curl for debugging; take openssl past the base image's for CVE-2026-84782, and apt and
+# libbrotli1 past the base image's for CVE-2026-109518 and CVE-2026-111497, until the base image is
+# rebuilt with them. apt's own libapt-pkg dependency comes along with it: naming that library
+# package explicitly broke on this image, where it is not a directly installable package name.
 RUN apt-get update \
     && apt-get install -y curl \
+    && apt-get install -y --only-upgrade openssl libssl3t64 apt libbrotli1 \
     && rm -rf /var/lib/apt/lists/*
 
 # run as non-root ... group and user "app"
@@ -15,8 +19,12 @@ RUN groupadd -r app && useradd -r -g app app
 WORKDIR /app
 
 # ---- Application files ----
-COPY docker/* /app/
+# Only the entrypoint: the rest of docker/ is the local compose stack's configuration.
+COPY docker/startup.sh /app/
 COPY build/libs/*.jar /app/
+# The agent config reads the connection string from APPLICATIONINSIGHTS_CONNECTION_STRING.
+# The per-environment value is mounted from Key Vault by the Secrets Store CSI driver and
+# exported into the container environment; it is never baked into the image.
 COPY lib/applicationinsights.json /app/
 
 USER app

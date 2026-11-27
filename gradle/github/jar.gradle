@@ -1,0 +1,23 @@
+jar {
+  enabled = true
+  archiveClassifier.set('plain')
+  manifest {
+    attributes(
+      'Implementation-Title': project.name,
+      'Implementation-Version': project.version.toString()
+    )
+  }
+}
+
+bootJar {
+  archiveFileName = "${rootProject.name}-${project.version}.jar"
+
+  manifest {
+    attributes('Implementation-Version': project.version.toString())
+  }
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+  preserveFileTimestamps = false
+  reproducibleFileOrder = true
+}

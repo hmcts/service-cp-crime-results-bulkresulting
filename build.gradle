@@ -1,52 +1,82 @@
 plugins {
   id 'application'
   id 'java'
-  id 'org.springframework.boot' version '4.2.0'
-  id 'io.spring.dependency-management' version '1.1.7'
+  alias(libs.plugins.spring.boot)
+  alias(libs.plugins.spring.dependency.management)
   id 'jacoco'
   id 'maven-publish'
-  id 'com.github.ben-manes.versions' version '0.67.0'
-  id 'org.cyclonedx.bom' version '3.6.1'
-  id 'com.gorylenko.gradle-git-properties' version '4.0.1'
+  alias(libs.plugins.ben.manes.versions)
+
+  alias(libs.plugins.cyclonedx.bom).apply(false)
+  alias(libs.plugins.gradle.git.properties)
+}
+
+// Apply CycloneDX only when explicitly requested (e.g. CodeQL workflow: ./gradlew build cyclonedxBom).
+// The plugin's plexus-xml dependency is fetched from Maven Central at configuration time, which
+// ADO agents can't always reach. Keeping it opt-in avoids crashing normal builds.
+if (gradle.startParameter.taskNames.any { it.contains('cyclonedxBom') }) {
+  apply plugin: 'org.cyclonedx.bom'
 }
 
 group = 'uk.gov.hmcts.cp'
 version = System.getProperty('ARTEFACT_VERSION') ?: '0.0.999'
 
+// Override the Spring Boot 4.1.2 managed Jackson versions to pick up the fix for CVE-2026-110879
+// (jackson-databind CRITICAL). Remove once Spring Boot manages >= these.
+ext['jackson-bom.version'] = '3.1.8'
+ext['jackson-2-bom.version'] = '2.21.8'
+
+// Override Spring Boot 4.1.2 managed OpenTelemetry to pick up the fix for CVE-2026-118259
+// (quadratic CPU in W3C tracestate parsing). Remove once Spring Boot manages >= 1.67.0.
+ext['opentelemetry.version'] = '1.67.0'
+
 apply {
-  from("$rootDir/gradle/repositories.gradle")
-  from("$rootDir/gradle/java.gradle")
-  from("$rootDir/gradle/dependency.gradle")
-  from("$rootDir/gradle/pmd.gradle")
-  from("$rootDir/gradle/test.gradle")
-  from("$rootDir/gradle/jar.gradle")
+  from("$rootDir/gradle/dependencies/java-core.gradle")
+  from("$rootDir/gradle/dependencies/spring-core.gradle")
+  from("$rootDir/gradle/dependencies/spring-db.gradle")
+
+  from("$rootDir/gradle/github/repositories.gradle")
+  from("$rootDir/gradle/github/java.gradle")
+  from("$rootDir/gradle/github/dependency.gradle")
+  from("$rootDir/gradle/github/pmd.gradle")
+  from("$rootDir/gradle/github/checkstyle.gradle")
+  from("$rootDir/gradle/github/test.gradle")
+  from("$rootDir/gradle/github/jar.gradle")
+
+  from("$rootDir/gradle/apispec-validation.gradle")
 }
 
-// We MUST keep all dependencies in the build.gradle to allow dependabot to provide version updates
-// Sadly, dependabot does not track dependencies in the apply-from files
-dependencies {
-  // Java core
-  implementation 'net.logstash.logback:logstash-logback-encoder:9.0'
+configurations {
+  apiSpec
+  implementation.extendsFrom apiSpec
+}
 
-  compileOnly 'org.projectlombok:lombok:1.18.48'
-  annotationProcessor 'org.projectlombok:lombok:1.18.48'
-  testCompileOnly 'org.projectlombok:lombok:1.18.48'
-  testAnnotationProcessor 'org.projectlombok:lombok:1.18.48'
-
-  // Spring boot core
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  testImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
-  testImplementation('org.springframework.boot:spring-boot-starter-test') {
-    exclude group: 'junit', module: 'junit'
-    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+springBoot {
+  buildInfo {
+    properties {
+      name = project.name
+      version = project.version.toString()
+    }
   }
+}
 
+dependencies {
+  apiSpec libs.api.bulkresulting
 
-  // --- Observability / Actuator / OTEL / Prometheus ---
-  implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-opentelemetry'
+  implementation libs.spring.boot.starter.actuator
+  implementation libs.spring.boot.starter.validation
+  implementation libs.micrometer.registry.prometheus
+  implementation libs.spring.boot.starter.cache
+  implementation libs.caffeine
+  implementation libs.spring.boot.starter.opentelemetry
+  implementation libs.cp.auth.rules.filter
 
-  // Security: pin transitive tomcat-embed-core to patched version (CVE-2026-41293, -43512, et al.)
-  // Brought in transitively via spring-boot-starter-web; >=11.0.0-M1,<11.0.22 are vulnerable
-  implementation 'org.apache.tomcat.embed:tomcat-embed-core:11.0.29'
+  // Should come in with the api
+  implementation libs.swagger.core
+
+  testImplementation libs.wiremock.standalone
+  testImplementation libs.spring.boot.restclient
+  testImplementation(platform(libs.junit.bom))
+  testRuntimeOnly libs.junit.jupiter.engine
+  testRuntimeOnly libs.junit.platform.launcher
 }

@@ -1,13 +1,37 @@
 spring:
   application:
-    name: service-UPDATE-TO-BE-NAME-OF-SERVICE
+    name: service-cp-crime-results-bulkresulting
+  datasource:
+    # Local development defaults matching the `postgres` service in docker-compose.yml. Deployed
+    # environments override them (SPRING_DATASOURCE_URL, _USERNAME, _PASSWORD) from Key Vault
+    # through the Secrets Store CSI driver.
+    url: jdbc:postgresql://localhost:5432/bulkresulting
+    username: bulkresulting
+    password: bulkresulting
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  threads:
+    virtual:
+      enabled: true
+  jackson:
+    # Optional fields the service has no value for are left out of the response, as the contract
+    # describes ("absent when the case has none").
+    default-property-inclusion: non_null
 
 server:
-  port: ${SERVER_PORT:8082}
-
-azure:
-  application-insights:
-    instrumentation-key: ${rpe.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
+  port: ${SERVER_PORT:4550}
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:/bulkresulting}
+  shutdown: graceful
+  forward-headers-strategy: framework
+  error:
+    include-stacktrace: never
+    include-message: never
+  compression:
+    enabled: true
+    min-response-size: 2KB
+    mime-types: "application/json"
 
 management:
   endpoints:
@@ -18,8 +42,66 @@ management:
   endpoint:
     health:
       probes:
-        enabled: true   # enables liveness / readiness groups
+        enabled: true
+  metrics:
+    tags:
+      service: service-cp-crime-results-bulkresulting
+      cluster: ${CLUSTER_NAME:local}
+      region: ${REGION:local}
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLER_PROBABILITY:1.0}
+  otlp:
+    tracing:
+      endpoint: ${OTEL_TRACES_URL:http://localhost:4318/traces}
+    metrics:
+      export:
+        enabled: ${OTEL_METRICS_ENABLED:false}
+        url: ${OTEL_METRICS_URL:http://localhost:4318/metrics}
+
+authz:
+  http:
+    enabled: ${AUTHZ_ENABLED:true}
+    identity-url-template: ${CP_BASE_URL:http://localhost:8080}/usersgroups-query-api/query/api/rest/usersgroups/users/logged-in-user/permissions
+    user-id-header: "CJSCPPUID"
+    action-header: "CPP-ACTION"
+    accept-header: "application/vnd.usersgroups.get-logged-in-user-permissions+json"
+    drools-classpath-pattern: "classpath:/acl/**/*.drl"
+    reload-on-each-request: false
+    action-required: false
+    deny-when-no-rules: true
+    exclude-path-prefixes:
+      - "/actuator"
+      - "/error"
+
+bulkresulting:
+  cp:
+    # Host only; each client appends its own context path.
+    base-url: ${CP_BASE_URL:http://localhost:8080}
+    connect-timeout: ${CP_CONNECT_TIMEOUT:2s}
+    # Listing's range search returns up to 4,000 hearings in one response.
+    read-timeout: ${CP_READ_TIMEOUT:30s}
+    # Connect and read failures, 408, 429, 500, 502, 503 and 504 are retried, honouring a
+    # delta-seconds Retry-After up to max-backoff. All calls are reads.
+    max-attempts: ${CP_MAX_ATTEMPTS:3}
+    initial-backoff: ${CP_INITIAL_BACKOFF:200ms}
+    max-backoff: ${CP_MAX_BACKOFF:2s}
+    # Concurrent calls per search to hearing (one per date and courtroom) and progression
+    # (one per case on the page).
+    parallelism: ${CP_PARALLELISM:10}
+  search:
+    max-batch-size: ${BULK_MAX_BATCH_SIZE:100}
+    search-window-days: ${BULK_SEARCH_WINDOW_DAYS:28}
+    page-size: ${BULK_PAGE_SIZE:100}
+    # Listing caps useMaxPageSize at listing.query.rangeSearch.maxPageSize (4,000 by default).
+    # A range search reporting this many results or more is refused as too broad.
+    listing-max-results: ${BULK_LISTING_MAX_RESULTS:4000}
+    candidate-cache-ttl: ${BULK_CANDIDATE_CACHE_TTL:5m}
+    candidate-cache-max-entries: ${BULK_CANDIDATE_CACHE_MAX_ENTRIES:1000}
+    court-cache-ttl: ${BULK_COURT_CACHE_TTL:60m}
+    time-zone: Europe/London
 
 logging:
   level:
     root: INFO
+  config: classpath:logback.xml

@@ -1,0 +1,35 @@
+import uk.gov.moj.cpp.authz.drools.Outcome;
+import uk.gov.moj.cpp.authz.drools.Action;
+
+global uk.gov.moj.cpp.authz.http.providers.UserAndGroupProvider userAndGroupProvider;
+
+// Authorisation rules for the bulk resulting service (cp-auth-rules-filter, Drools).
+//
+// INTERIM RULE. It admits any caller the gateway has identified (a request without CJSCPPUID is
+// refused with 401 before any rule runs). It must be replaced by the permission rule below once
+// the "Bulk resulting" role and the "Bulk resulting for Enforcement" permission exist in
+// usersgroups (CRA-394). Until then the service still checks the court boundary itself: the court
+// searched must be one of the caller's court centres.
+rule "Allow - interim - any identified caller"
+when
+  $o: Outcome()
+  $a: Action(name in ("bulkresulting.search-hearings", "bulkresulting.get-config", "bulkresulting.root"))
+  eval(true)
+then
+  $o.setSuccess(true);
+end
+
+// PERMISSION RULE, NOT YET ACTIVE. Enable it, and delete the interim rule above, once the
+// "Bulk resulting" role and the "Bulk resulting for Enforcement" permission exist in usersgroups
+// (CRA-394). The permission's object and action strings must be confirmed against the usersgroups
+// static data before it is enabled.
+//
+// rule "Allow - bulk resulting for enforcement"
+// when
+//   $o: Outcome()
+//   $a: Action(name in ("bulkresulting.search-hearings", "bulkresulting.get-config"))
+//   eval(userAndGroupProvider.hasPermission($a,
+//       "{\"object\":\"Bulk resulting for Enforcement\",\"action\":\"<to be confirmed>\"}"))
+// then
+//   $o.setSuccess(true);
+// end

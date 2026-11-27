@@ -1,0 +1,14 @@
+{
+  "priority": 5,
+  "request": {
+    "method": "GET",
+    "urlPath": "/usersgroups-query-api/query/api/rest/usersgroups/users/logged-in-user/permissions"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "usersgroups-permissions.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

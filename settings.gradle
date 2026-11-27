@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+// Explicit so the bootJar name (gradle/github/jar.gradle) and CI's app-jar upload path never
+// depend on the checkout directory name.
+rootProject.name = 'service-cp-crime-results-bulkresulting'
